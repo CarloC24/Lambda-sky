@@ -23,7 +23,6 @@
     "passport-local-mongoose": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10",
-    "now": "^14.0.0"
+    "nodemon": "^1.18.10"
   }
 }
