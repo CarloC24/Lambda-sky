@@ -2,6 +2,8 @@ const server = require('./server');
 const port = process.env.PORT || 9000;
 const mongoose = require('mongoose');
 
+const passportConfig = require('./config/passport-config');
+
 const users = require('./routes/UserRoutes')
 
 mongoose.connect('mongodb://carlo:carloc1@ds111622.mlab.com:11622/lambda-sky');
