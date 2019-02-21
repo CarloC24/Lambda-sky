@@ -2,23 +2,23 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-// ROUTE:   GET api/users/test
+// ROUTE:   GET auth/test
 // DESC:    Tests users route
 // ACCESS:  Public
-router.get('/test', (req, res) => res.json({test: '/api/users route works'}));
+router.get('/test', (req, res) => res.json({test: '/auth/test route works'}));
 
-// ROUTE:   GET api/users/google
+// ROUTE:   GET auth/google
 // DESC:    Allow users to authenticate with google
 // ACCESS:  Public
 router.get('/google', passport.authenticate('google', {
   scope: ['profile']
 }));
 
-// ROUTE:   GET api/users/google/redirect
+// ROUTE:   GET auth/google/redirect
 // DESC:    Allow users to authenticate with google
 // ACCESS:  Public
 router.get('/google/redirect', (req,res) => {
-  res.json({auth: 'api/users/google/redirect route works'})
+  res.send('auth/google/redirect route works')
 });
 
 module.exports = router; 

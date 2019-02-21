@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const passportConfig = require('./config/passport-config');
 
-const users = require('./routes/UserRoutes')
+const users = require('./routes/AuthRoutes')
 
 mongoose.connect('mongodb://carlo:carloc1@ds111622.mlab.com:11622/lambda-sky');
 mongoose.connection.once('open', () => {
@@ -13,7 +13,7 @@ mongoose.connection.once('open', () => {
 
 // Use Routes
 
-server.use('/api/users', users)
+server.use('/auth', users)
 
 
 mongoose.connection.on('error', () => {
