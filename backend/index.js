@@ -5,16 +5,18 @@ const keys = require('./config/keys');
 
 const passportConfig = require('./config/passport-config');
 
-const users = require('./routes/AuthRoutes')
+const AuthRoutes = require('./routes/AuthRoutes')
+const ProfileRoutes = require('./routes/ProfileRoutes')
 
 mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true });
 mongoose.connection.once('open', () => {
   console.log('connected to the database');
 });
 
-// Use Routes
+// Server.use routes
 
-server.use('/auth', users)
+server.use('/auth', AuthRoutes)
+server.use('/profile', ProfileRoutes)
 
 mongoose.connection.on('error', () => {
   console.log('big error');

@@ -18,7 +18,7 @@ router.get('/google', passport.authenticate('google', {
 // DESC:    Allow users to authenticate with google
 // ACCESS:  Public
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.send(`Welcome, ${req.user.firstName}!`)
+  res.redirect('/profile');
 });
 
 module.exports = router; 
