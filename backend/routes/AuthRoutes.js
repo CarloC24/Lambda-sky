@@ -17,8 +17,8 @@ router.get('/google', passport.authenticate('google', {
 // ROUTE:   GET auth/google/redirect
 // DESC:    Allow users to authenticate with google
 // ACCESS:  Public
-router.get('/google/redirect', (req,res) => {
-  res.send('auth/google/redirect route works')
+router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+  res.json({auth: 'auth/google/redirect route works'})
 });
 
 module.exports = router; 
