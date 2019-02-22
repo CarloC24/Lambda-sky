@@ -7,6 +7,14 @@ const passport = require('passport');
 // ACCESS:  Public
 router.get('/login', (req, res) => res.json({login: 'please log in before continuing...'}));
 
+// ROUTE:   GET auth/logout
+// DESC:    Users can logout
+// ACCESS:  Private
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/auth/login');
+});
+
 // ROUTE:   GET auth/google
 // DESC:    Allow users to authenticate with google
 // ACCESS:  Public
