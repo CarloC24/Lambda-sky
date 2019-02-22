@@ -16,7 +16,6 @@ mongoose.connection.once('open', () => {
 
 server.use('/auth', users)
 
-
 mongoose.connection.on('error', () => {
   console.log('big error');
 });
