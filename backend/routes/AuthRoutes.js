@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-// ROUTE:   GET auth/test
-// DESC:    Tests users route
+// ROUTE:   GET auth/login
+// DESC:    Tests login route
 // ACCESS:  Public
-router.get('/test', (req, res) => res.json({test: '/auth/test route works'}));
+router.get('/login', (req, res) => res.json({login: 'please log in before continuing...'}));
 
 // ROUTE:   GET auth/google
 // DESC:    Allow users to authenticate with google
