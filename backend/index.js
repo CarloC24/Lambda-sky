@@ -7,7 +7,7 @@ const passportConfig = require('./config/passport-config');
 
 const users = require('./routes/AuthRoutes')
 
-mongoose.connect(keys.mongodb.dbURI);
+mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true });
 mongoose.connection.once('open', () => {
   console.log('connected to the database');
 });

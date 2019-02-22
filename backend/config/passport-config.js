@@ -10,25 +10,26 @@ passport.use(
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret
   }, (accessToken, refreshToken, profile, done) => {
-      // passport callback function
-      console.log('passport callback function fired:');
-      console.log(profile);
-      new User({
-          googleId: profile.id,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName
+    
+      User.findOne({googleId: profile.id})
+      .then((currentUser) => {
+        // If user already exists
+        if(currentUser) {
+            console.log('current user: ' + currentUser);
+        } else {
+            // Else create new user
+            new User({
+                googleId: profile.id,
+                firstName: profile.name.givenName,
+                lastName: profile.name.familyName
+            })
+            .save()
+            .then((newUser) => {
+                console.log('new user: ' + newUser);
+            })
+            .catch((err)=> {console.log(err)})
+        }
       })
-      .save()
-      .then((newUser) => {
-          console.log('new user: ' + newUser);
-      });
+
   })
 );
-
-// passport.deserializeUser(
-//     User.deserializeUser()
-// )
-
-// passport.serializeUser(
-//     User.serializeUser()
-// )
