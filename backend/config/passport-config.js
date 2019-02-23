@@ -1,7 +1,7 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20');
-const keys = require('./keys');
-const User = require('../models/Users');
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20");
+const keys = require("./keys");
+const User = require("../models/Users");
 
 passport.use(
     new GoogleStrategy({
@@ -33,6 +33,7 @@ passport.use(
         })
     })
 );
+//Create the local strategy for passport
 
 passport.serializeUser((user, done) => {
       done(null, user.id);

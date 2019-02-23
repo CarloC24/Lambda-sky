@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seedme": "node ./seeds/load-sample-data.js",
+    "nuke": "node ./seeds/load-sample-data.js --delete"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "connect-mongo": "^2.0.3",
+    "cookie-parser": "^1.4.4",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",

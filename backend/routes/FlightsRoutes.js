@@ -1,24 +1,24 @@
-const express = require('express');
-const Flights = require('../models/Flights');
+const express = require("express");
+const Flights = require("../models/Flights");
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   const AllFlights = await Flights.find();
   res.json(AllFlights);
 });
 
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   const SingleFlight = await Flights.findById(req.params.id);
   res.json(SingleFlight);
 });
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const NewFlight = req.body;
   await new Flights(NewFlight).save();
-  res.json({ message: 'Sucessfully saved a new store' });
+  res.json({ message: "Sucessfully saved a new store" });
 });
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   const updatedFlight = await Flights.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -27,7 +27,9 @@ router.put('/:id', async (req, res) => {
   res.json(updatedFlight);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   await Flights.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Sucessfully Deleted Flight' });
+  res.json({ message: "Sucessfully Deleted Flight" });
 });
+
+module.exports = router;
