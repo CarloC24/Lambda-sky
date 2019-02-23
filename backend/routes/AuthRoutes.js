@@ -24,8 +24,18 @@ router.get(
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   res.send(`Welcome, ${req.user.firstName}!`);
 });
-router.router.get("/me", (req, res) => {
+router.get("/me", (req, res) => {
   res.json("cool");
 });
+
+router.get(
+  "/local/register",
+  async (req, res) => {
+    const user = new User({ email: req.body.email, name: req.body.name });
+    User.register(user, req.body.password);
+    next();
+  },
+  passport.authenticate("local")
+);
 
 module.exports = router;
