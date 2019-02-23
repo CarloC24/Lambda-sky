@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
-<<<<<<< HEAD
-const passport = require("passport");
-const User = require("../models/Users");
-=======
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys')
->>>>>>> 28f4364abf3e4cd6df6fa15404afe3b903a346e4
 
 // Load validation
 const validateRegisterInput = require('../validation/registration')
@@ -18,9 +13,6 @@ const validateLoginInput = require('../validation/login')
 // ROUTE:   GET auth/login
 // DESC:    Tests login route
 // ACCESS:  Public
-<<<<<<< HEAD
-router.get("/test", (req, res) => res.json({ test: "/auth/test route works" }));
-=======
 router.get('/login', (req, res) => res.json({login: 'please log in before continuing...'}));
 
 // ROUTE:   GET auth/logout
@@ -30,7 +22,6 @@ router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/auth/login');
 });
->>>>>>> 28f4364abf3e4cd6df6fa15404afe3b903a346e4
 
 // ROUTE:   GET auth/google
 // DESC:    Allow users to authenticate with google
@@ -89,9 +80,6 @@ router.post(
   }
 );
 
-<<<<<<< HEAD
-module.exports = router;
-=======
 // ROUTE:   POST auth/register
 // DESC:    Register user
 // ACCESS:  Public
@@ -161,9 +149,9 @@ router.post('/login', (req, res) => {
 
              // Sign token
             jwt.sign(
-              payload, 
-              keys.tokenKey, 
-              { expiresIn: 3600 }, 
+              payload,
+              keys.tokenKey,
+              { expiresIn: 3600 },
               (err, token) => {
                 res.json({
                   success: true,
@@ -178,5 +166,4 @@ router.post('/login', (req, res) => {
 })
 
 
-module.exports = router; 
->>>>>>> 28f4364abf3e4cd6df6fa15404afe3b903a346e4
+module.exports = router;

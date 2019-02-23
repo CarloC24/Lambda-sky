@@ -24,6 +24,7 @@ server.use('/profile', ProfileRoutes)
 server.use('/hotel',HotelsRouter)
 server.use('/trips',TripsRouter)
 server.use('/flights',FlightsRouter)
+server.use('/carRental',CarRentalsRoutes)
 
 mongoose.connection.on("error", () => {
   console.log("big error");
