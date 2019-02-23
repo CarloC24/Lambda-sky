@@ -2,9 +2,7 @@ const server = require('./server');
 const port = process.env.PORT || 9000;
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
-
-const passportConfig = require('./config/passport-config');
-
+require('./config/passport-config');
 const users = require('./routes/AuthRoutes')
 
 mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true });
