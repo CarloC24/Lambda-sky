@@ -21,6 +21,7 @@ server.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
 server.use(cookieParser());
+server.use(express.json());
 
 server.use(
   session({

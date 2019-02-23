@@ -1,22 +1,24 @@
-const server = require('./server');
+const server = require("./server");
 const port = process.env.PORT || 9000;
-const mongoose = require('mongoose');
-const keys = require('./config/keys');
-require('./config/passport-config');
-const users = require('./routes/AuthRoutes')
+const mongoose = require("mongoose");
+const keys = require("./config/keys");
+require("./config/passport-config");
+const users = require("./routes/AuthRoutes");
+const flights = require("./routes/FlightsRoutes");
 
 mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true });
-mongoose.connection.once('open', () => {
-  console.log('connected to the database');
+mongoose.connection.once("open", () => {
+  console.log("connected to the database");
 });
 
 // Use Routes
 
-server.use('/auth', users)
+server.use("/auth", users);
+server.use("/flights", flights);
 
-mongoose.connection.on('error', () => {
-  console.log('big error');
+mongoose.connection.on("error", () => {
+  console.log("big error");
 });
 server.listen(port, () => {
-  console.log('Lambda ☁️ ');
+  console.log("Lambda ☁️ ");
 });
