@@ -28,19 +28,18 @@ passport.use(
                   console.log('new user: ' + newUser);
                   done(null, newUser);
               })
-              .catch((err)=> {console.log(err)})
-          }
+              .catch(err => console.log(err));
+            }
         })
     })
 );
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
-})
+      done(null, user.id);
+    });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id)
-    .then((user) => {
-        done(null, user.id);
-    })
-})
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
