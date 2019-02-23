@@ -12,3 +12,6 @@ router.post('/', async (req, res) => {
   await NewCarRental.save();
   res.json({ message: 'You added a new Car Rental ' });
 });
+
+
+module.exports = router;

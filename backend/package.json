@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "seedme": "node ./seeds/load-sample-data.js"
+    "seedme": "node ./seeds/load-sample-data.js",
+    "nuke": "node ./seeds/load-sample-data.js --delete"
   },
   "keywords": [],
   "author": "",
