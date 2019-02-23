@@ -33,14 +33,22 @@ passport.use(
         })
     })
 );
+//Create the local strategy for passport
+passport.use(User.createStrategy());
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-})
+//Tells passport to put the user in every single request
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-passport.deserializeUser((id, done) => {
-    User.findById(id)
-    .then((user) => {
-        done(null, user.id);
-    })
-})
+//SHORTCUT FOR USER.serializeUser()
+// passport.serializeUser((user, done) => {
+//     done(null, user.id);
+// })
+
+//SHORTCUT for USER.deserializeUser()
+// passport.deserializeUser((id, done) => {
+//     User.findById(id)
+//     .then((user) => {
+//         done(null, user.id);
+//     })
+// })
