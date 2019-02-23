@@ -6,6 +6,9 @@ const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys')
 
+// Load validation
+const validateRegisterInput = require('../validation/registration')
+const validateLoginInput = require('../validation/login')
 
 // ROUTE:   GET auth/login
 // DESC:    Tests login route
@@ -38,10 +41,17 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 // DESC:    Register user
 // ACCESS:  Public
 router.post('/register', (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   User.findOne({ email: req.body.email })
     .then(user => {
       if(user) {
-        return res.status(400).json({email: 'Email already exists'})
+        errors.email = 'Email already exists';
+        return res.status(400).json(errors);
       } else {
          const newUser = new User({
           name: req.body.name,
@@ -66,6 +76,13 @@ router.post('/register', (req, res) => {
 // DESC:    Login User / Return JWT Token
 // ACCESS:  Public
 router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
@@ -74,7 +91,8 @@ router.post('/login', (req, res) => {
     .then(user => {
       // Check for user
       if(!user) {
-        return res.status(404).json({email: 'You have entered an invalid email or password.'});
+        errors.email = 'You have entered an invalid email or password.';
+        return res.status(404).json(errors);
       }
 
        // Check password
