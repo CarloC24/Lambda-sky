@@ -28,7 +28,7 @@ router.get("/me", (req, res) => {
   res.json("cool");
 });
 
-router.get(
+router.post(
   "/local/register",
   async (req, res) => {
     const user = new User({ email: req.body.email, name: req.body.name });
@@ -36,6 +36,19 @@ router.get(
     next();
   },
   passport.authenticate("local")
+);
+
+router.post(
+  (req, res, next) => {
+    next();
+  },
+  passport.authenticate("local", {
+    successMessage: "successfully logged in!",
+    failureMessage: "failed login"
+  }),
+  (req, res) => {
+    res.json({ message: "yay" });
+  }
 );
 
 module.exports = router;
