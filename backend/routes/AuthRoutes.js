@@ -41,6 +41,19 @@ router.get(
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   res.redirect("/profile");
 });
+
+// ROUTE:   GET auth/google
+// DESC:    Allow users to authenticate with facebook
+// ACCESS:  Public
+router.get("/facebook", passport.authenticate("facebook"));
+
+// ROUTE:   GET auth/google/callback
+// DESC:    Allow users to authenticate with facebook
+// ACCESS:  Public
+router.get("/facebook/callback", passport.authenticate("facebook"), (req,res) => {
+  res.redirect("/profile");
+});
+
 router.get("/me", (req, res) => {
   res.json(req.user);
 });
