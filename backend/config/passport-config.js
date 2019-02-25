@@ -1,7 +1,7 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20");
-const keys = require("./keys");
-const User = require("../models/Users");
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
+const keys = require('./keys');
+const User = require('../models/Users');
 
 passport.use(
     new GoogleStrategy({
@@ -18,12 +18,12 @@ passport.use(
               done(null, currentUser);
           } else {
               // Else create new user
-              new User({
-                  googleId: profile.id,
-                  firstName: profile.name.givenName,
-                  lastName: profile.name.familyName
-              })
-              .save()
+              let newUser = new User();
+              newUser.google.googleId = profile.id,
+              newUser.google.firstName = profile.name.givenName,
+              newUser.google.lastName = profile.name.familyName
+              // Save new user
+              newUser.save()
               .then((newUser) => {
                   console.log('new user: ' + newUser);
                   done(null, newUser);
@@ -33,7 +33,6 @@ passport.use(
         })
     })
 );
-//Create the local strategy for passport
 
 passport.serializeUser((user, done) => {
       done(null, user.id);

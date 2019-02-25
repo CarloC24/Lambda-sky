@@ -12,7 +12,7 @@ const authCheck = (req, res, next) => {
 };
 
 router.get('/', authCheck, (req, res) => {
-  res.send(`Welcome, ${req.user.firstName}!`)
+  res.send(`Welcome, ${req.user.google.firstName}!`)
 });
 
 module.exports = router;
