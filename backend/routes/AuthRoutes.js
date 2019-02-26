@@ -31,7 +31,7 @@ router.get("/logout", (req, res) => {
 router.get(
   "/google",
   passport.authenticate("google", {
-    scope: ["profile"]
+    scope: ["profile", "email"]
   })
 );
 
@@ -41,6 +41,18 @@ router.get(
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   res.redirect("/profile");
 });
+
+// ROUTE:   GET auth/facebook
+// DESC:    Allow users to authenticate with facebook
+// ACCESS:  Public
+router.get("/facebook", passport.authenticate("facebook", {scope: ["email"]}));
+
+// ROUTE:   GET auth/facebook/callback
+// DESC:    Allow users to authenticate with facebook
+// ACCESS:  Public
+router.get("/facebook/redirect", passport.authenticate("facebook", 
+{ successRedirect: '/profile', failureRedirect: '/login' }));
+
 router.get("/me", (req, res) => {
   res.json(req.user);
 });
