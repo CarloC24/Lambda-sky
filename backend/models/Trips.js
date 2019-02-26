@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 
 const TripsSchema = new mongoose.Schema({
   userId: { type: Mongooose.Schema.Types.ObjectId, ref: 'user' },
-  hotel: [{ 
+  hotels: [{ 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hotels'
   }],
-  car: [{ 
+  cars: [{ 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CarRental'
   }],
-  flight: [{ 
+  flights: [{ 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Flight'
   }],
