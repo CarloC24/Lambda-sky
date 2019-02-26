@@ -42,17 +42,16 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   res.redirect("/profile");
 });
 
-// ROUTE:   GET auth/google
+// ROUTE:   GET auth/facebook
 // DESC:    Allow users to authenticate with facebook
 // ACCESS:  Public
-router.get("/facebook", passport.authenticate("facebook"));
+router.get("/facebook", passport.authenticate("facebook", {scope: ["email"]}));
 
-// ROUTE:   GET auth/google/callback
+// ROUTE:   GET auth/facebook/callback
 // DESC:    Allow users to authenticate with facebook
 // ACCESS:  Public
-router.get("/facebook/callback", passport.authenticate("facebook"), (req,res) => {
-  res.redirect("/profile");
-});
+router.get("/facebook/redirect", passport.authenticate("facebook", 
+{ successRedirect: '/profile', failureRedirect: '/login' }));
 
 router.get("/me", (req, res) => {
   res.json(req.user);
