@@ -13,7 +13,7 @@ passport.use(
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
-        User.findOne({googleId: profile.id})
+        console.log(profile)
         .then((currentUser) => {
           // If user already exists
           if(currentUser) {
@@ -23,6 +23,7 @@ passport.use(
               // Else create new user
               let newUser = new User();
               newUser.google.googleId = profile.id,
+              newUser.email = profile._json.emails[0].value,
               newUser.google.firstName = profile.name.givenName,
               newUser.google.lastName = profile.name.familyName
               // Save new user
