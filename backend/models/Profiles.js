@@ -7,26 +7,22 @@ const ProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  location: {
+  photo: {
     type: String
   },
-  bio: {
+  dateofbirth: {
+    type: Date
+  },
+  airport: {
     type: String
   },
   trips: [{ 
     type: Schema.Types.ObjectId,
     ref: 'tripsschemas'
   }],
-  social: {
-    twitter: {
-      type: String
-    },
-    facebook: {
-      type: String
-    },
-    instagram: {
-      type: String
-    }
+  tripnotification: {
+    email: Boolean,
+    phone: Boolean,
   }
 });
 
