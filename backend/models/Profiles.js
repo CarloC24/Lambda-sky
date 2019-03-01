@@ -20,6 +20,9 @@ const ProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'tripsschemas'
   }],
+  phonenumber: {
+    type: String
+  },
   tripnotification: {
     email: Boolean,
     phone: Boolean,
