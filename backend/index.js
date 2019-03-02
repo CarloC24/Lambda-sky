@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 const keys = require("./config/keys");
 
 const passport = require("passport");
+// Passport middleware
+server.use(passport.initialize());
+server.use(passport.session());
+// Passport config
+require('./config/passport-config')(passport);
 
 const AuthRoutes = require("./routes/AuthRoutes");
 const ProfileRoutes = require("./routes/ProfileRoutes");
@@ -25,14 +30,6 @@ server.use("/hotel", HotelsRouter);
 server.use("/trips", TripsRouter);
 server.use("/flights", FlightsRouter);
 server.use("/carRental", CarRentalsRoutes);
-
-
-// Passport middleware
-server.use(passport.initialize());
-server.use(passport.session());
-
-// Passport config
-require('./config/passport')(passport);
 
 mongoose.connection.on("error", () => {
   console.log("big error");
