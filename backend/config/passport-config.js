@@ -40,7 +40,7 @@ passport.use(
                   console.log('new user: ' + newUser);
                   const payload = { id: newUser.id };
                   jwt.sign(payload, keys.tokenKey, { expiresIn: 3600 }, (err, token) => {
-                    res.json({
+                        res.json({
                       success: true,
                       token: "Bearer " + token
                     });
@@ -67,6 +67,7 @@ passport.use(new FacebookStrategy({
           console.log('current user: ' + currentUser);
           const payload = { id: currentUser.id };
           jwt.sign(payload, keys.tokenKey, { expiresIn: 3600 }, (err, token) => {
+            console.log("Bearer " + token)
             res.json({
               success: true,
               token: "Bearer " + token
