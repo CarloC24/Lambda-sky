@@ -26,6 +26,14 @@ module.exports = function validateProfileInput(data) {
     }
   }
 
+  if(Validator.isEmpty(data.airport)) {
+    errors.airport = 'Airport field is required.';
+  }
+
+  if(Validator.isEmpty(data.phonenumber)) {
+    errors.phonenumber = 'Phone number field is required.';
+  }
+
   // Possible adds: validate photo extension, validate 18+, validate isEmpty for airport (and anything else) if required
 
   return {

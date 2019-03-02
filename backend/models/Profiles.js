@@ -14,14 +14,16 @@ const ProfileSchema = new Schema({
     type: Date
   },
   airport: {
-    type: String
+    type: String,
+    required: true
   },
   trips: [{ 
     type: Schema.Types.ObjectId,
     ref: 'tripsschemas'
   }],
   phonenumber: {
-    type: String
+    type: String,
+    required: true
   },
   tripnotification: {
     email: Boolean,
