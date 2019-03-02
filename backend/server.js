@@ -2,7 +2,6 @@ const express = require("express");
 const server = express();
 const cookieSession = require("cookie-session");
 const keys = require("./config/keys");
-const passport = require("passport");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 
@@ -38,9 +37,6 @@ server.use(expressValidator());
 // Body parser middleware
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-
-server.use(passport.initialize());
-server.use(passport.session());
 
 server.get("/", (req, res) => {
   res.send("Lambda sky ☁️☁️☁️");

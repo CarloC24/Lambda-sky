@@ -1,23 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
+// Load Validation
+const validateProfileInput = require('../validation/profile');
 
+// Load models
+const Profile = require('../models/Profiles');
 
-const authCheck = (req, res, next) => {
-  // If user is not logged in
-  if(!req.user) {
-    res.redirect('/auth/login');
-    // Else go to the next function (router.get)
-  } else {
-    next();
-  }
-};
-
-// ROUTE:   GET api/profile
+// ROUTE:   GET /profile
 // DESC:    Get current user's profile
 // ACCESS:  Private
 
-router.get('/', authCheck, (req, res) => {
+router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const errors = {}
   Profile.findOne({ user: req.user.id })
     .then(profile => {
@@ -30,7 +25,18 @@ router.get('/', authCheck, (req, res) => {
     .catch(err => res.status(404).json(err));
 })
 
-router.post('/', authCheck, (req, res) => {
+// ROUTE:   GET /profile
+// DESC:    Create or edit user's profile
+// ACCESS:  Private
+
+router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  // Bring in validation
+  const { errors, isValid } = validateProfileInput(req.body);
+  // Check Validation
+  if (!isValid) {
+    // Return any errors with 400 status
+    return res.status(400).json(errors);
+  }
   // Get fields
   const profileFields = {};
   profileFields.user - req.user.id;

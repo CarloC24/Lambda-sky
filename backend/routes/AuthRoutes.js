@@ -124,7 +124,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-// ROUTE:   POST api/users/login
+// ROUTE:   POST auth/login
 // DESC:    Login User / Return JWT Token
 // ACCESS:  Public
 router.post("/login", (req, res) => {
