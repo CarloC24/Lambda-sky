@@ -5,7 +5,6 @@ const { authCheck } = require("./ProfileRoutes");
 const User = require("../models/Users");
 
 router.post("/createsubscription", authCheck, async (req, res) => {
-  const { token, amount } = req.query;
   const { email, id } = req.user;
   const customer = await stripe.customers.create({
     email,
@@ -15,7 +14,7 @@ router.post("/createsubscription", authCheck, async (req, res) => {
     customer: customer.id,
     items: [
       {
-        plan: "make a plan"
+        plan: "prod_EeTnCZOUHlV8LH"
       }
     ]
   });
