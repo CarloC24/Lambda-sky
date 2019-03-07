@@ -5,6 +5,8 @@ module.exports = function validateProfileInput(data) {
   let errors = {};
 
   data.photo = !isEmpty(data.photo) ? data.photo : '';
+  data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
+  data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
   data.dateofbirth = !isEmpty(data.dateofbirth) ? data.dateofbirth : '';
   data.phonenumber = !isEmpty(data.phonenumber) ? data.phonenumber : '';
 
@@ -32,6 +34,14 @@ module.exports = function validateProfileInput(data) {
 
   if(Validator.isEmpty(data.phonenumber)) {
     errors.phonenumber = 'Phone number field is required.';
+  }
+  
+    if(Validator.isEmpty(data.lastName)) {
+      errors.lastName = 'Last name field is required.';
+    }
+
+  if(Validator.isEmpty(data.firstName)) {
+    errors.firstName = 'First name field is required.';
   }
 
   // Possible adds: validate photo extension, validate 18+, validate isEmpty for airport (and anything else) if required

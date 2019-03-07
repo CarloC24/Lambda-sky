@@ -14,39 +14,42 @@ const User = require('../models/Users');
 // ACCESS:  Private
 
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log("userid", req.user.id)
   const errors = {}
+  
   Profile.findOne({ user: req.user.id })
-    .populate('user', ['firstName', 'lastName', 'email'])
-    .then(profile => {
-      console.log(profile)
+    .populate('user', ['email']) 
+    .exec((err, profile) => {
       if(!profile) {
         errors.noprofile = 'There is no profile for this user.';
         return res.status(404).json(errors);
       }
+      if(err) {
+        console.log(err)
+        res.status(400).end()
+      }
+      console.log(profile)
       res.json(profile);
     })
-    .catch(err => res.status(404).json(err));
 })
 
 // @route   GET profile/all
 // @desc    Get all profiles
 // @access  Public
-router.get('/all', (req, res) => {
-  const errors = {};
+// router.get('/all', (req, res) => {
+//   const errors = {};
 
-  Profile.find()
-    .populate('user', ['firstName', 'lastName', 'email'])
-    .then(profiles => {
-      if (!profiles) {
-        errors.noprofile = 'There are no profiles';
-        return res.status(404).json(errors);
-      }
+//   Profile.find()
+//     .populate('user', ['firstName', 'lastName', 'email'])
+//     .then(profiles => {
+//       if (!profiles) {
+//         errors.noprofile = 'There are no profiles';
+//         return res.status(404).json(errors);
+//       }
 
-      res.json(profiles);
-    })
-    .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
-});
+//       res.json(profiles);
+//     })
+//     .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
+// });
 
 // ROUTE:   POST /profile
 // DESC:    Create or edit user's profile
@@ -63,6 +66,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   // Get fields
   const profileFields = {};
   profileFields.user = req.user.id;
+  if (req.body.firstName) profileFields.firstName = req.body.firstName;
+  if (req.body.lastName) profileFields.lastName = req.body.lastName;
   if (req.body.photo) profileFields.photo = req.body.photo;
   if (req.body.dateofbirth) profileFields.dateofbirth = req.body.dateofbirth;
   if (req.body.airport) profileFields.airport = req.body.airport;

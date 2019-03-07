@@ -31,9 +31,7 @@ passport.use(
               // Else create new user
               let newUser = new User();
               newUser.google.googleId = profile.id,
-              newUser.email = profile._json.emails[0].value,
-              newUser.firstName = profile.name.givenName,
-              newUser.lastName = profile.name.familyName
+              newUser.email = profile._json.emails[0].value
               // Save new user
               newUser.save()
               .then((newUser) => {
@@ -78,9 +76,7 @@ passport.use(new FacebookStrategy({
           // Else create new user
           let newUser = new User();
           newUser.facebook.facebookId = profile.id,
-          newUser.email = profile.emails[0].value,
-          newUser.firstName = profile.name.givenName,
-          newUser.lastName = profile.name.familyName
+          newUser.email = profile.emails[0].value
           // Save new user
           newUser.save()
           .then((newUser) => {
