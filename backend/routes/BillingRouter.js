@@ -19,9 +19,11 @@ async function checkSubscription(req, res, next) {
 }
 
 router.post("/createsubscription", authCheck, async (req, res) => {
+  const { token } = req.query;
   const { email, id } = req.user;
   const customer = await stripe.customers.create({
     email,
+    token,
     description: "Lambda Sky Customer"
   });
   const subscription = await stripe.subscriptions.create({
