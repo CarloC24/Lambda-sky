@@ -1,4 +1,5 @@
-const stripe = require("stripe")("keyboi");
+const keys = require("../config/keys");
+const stripe = require("stripe")(keys.STRIPE_KEY);
 const router = require("express").Router();
 const { authCheck } = require("./ProfileRoutes");
 const User = require("../models/Users");
@@ -30,9 +31,10 @@ router.post("/createsubscription", authCheck, async (req, res) => {
   res.json({ message: "Thanks you just purchased a subscription" });
 });
 
-router.post("/deletesubscription", async (req, res) => {
-  const { subscriptionId } = req.user;
+router.post("/deletesubscription", authCheck, async (req, res) => {
+  const { subscriptionId, customerId } = req.user;
   await stripe.subscription.del(subscriptionId);
+  await stripe.customer.del(customerId);
   const updatedUser = {
     ...req.user,
     customerId: null,
