@@ -1,16 +1,11 @@
 const stripe = require("stripe")("keyboi");
 const router = require("express").Router();
 const { authCheck } = require("./ProfileRoutes");
+const User = require("../models/Users");
 
 router.post("/createsubscription", authCheck, async (req, res) => {
   const { token, amount } = req.query;
   const { email } = req.user;
-  await stripe.charges.create({
-    description: `Yay a new customer named ${email}`,
-    currency: "usd",
-    token,
-    amount
-  });
   const customer = await stripe.customers.create({
     email,
     description: "Lambda Sky Customer"
@@ -23,6 +18,13 @@ router.post("/createsubscription", authCheck, async (req, res) => {
       }
     ]
   });
+  res.json({ message: "Thanks you just purchased a subscription" });
+});
+
+router.post("/deletesubscription", async (req, res) => {
+  const { subscriptionId } = req.user;
+  await stripe.subscription.del(subscriptionId);
+  res.json({ message: "Deleted your subscription" });
 });
 
 module.exports = router;
