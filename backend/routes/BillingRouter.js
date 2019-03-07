@@ -4,6 +4,20 @@ const router = require("express").Router();
 const { authCheck } = require("./ProfileRoutes");
 const User = require("../models/Users");
 
+async function checkSubscription(req, res, next) {
+  const { subscriptionId } = await User.findById(req.user.id);
+  if (!subscriptionId) {
+    return res.json({ message: "Need a subscription to move forward" });
+  }
+  const { billing_cycle_anchor } = await stripe.subscriptions.retrieve(
+    subscriptionId
+  );
+  if (billing_cycle_anchor < Date.now()) {
+    return res.json({ message: "Please renew your subscription" });
+  }
+  return next();
+}
+
 router.post("/createsubscription", authCheck, async (req, res) => {
   const { email, id } = req.user;
   const customer = await stripe.customers.create({
