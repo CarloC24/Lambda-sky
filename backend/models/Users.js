@@ -9,7 +9,9 @@ const UserSchema = new mongoose.Schema({
   },
   name: String,
   email: String,
-  password: String
+  password: String,
+  customerId:String,
+  subscriptionId:String,
 });
 
 // UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
