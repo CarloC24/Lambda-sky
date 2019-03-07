@@ -62,7 +62,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   }
   // Get fields
   const profileFields = {};
-  profileFields.user - req.user.id;
+  profileFields.user = req.user.id;
   if (req.body.photo) profileFields.photo = req.body.photo;
   if (req.body.dateofbirth) profileFields.dateofbirth = req.body.dateofbirth;
   if (req.body.airport) profileFields.airport = req.body.airport;
