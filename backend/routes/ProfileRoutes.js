@@ -17,7 +17,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   const errors = {}
   
   Profile.findOne({ user: req.user.id })
-    .populate('user', ['email']) 
+    .populate('user', 'email') 
     .exec((err, profile) => {
       if(!profile) {
         errors.noprofile = 'There is no profile for this user.';
@@ -35,21 +35,24 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @route   GET profile/all
 // @desc    Get all profiles
 // @access  Public
-// router.get('/all', (req, res) => {
-//   const errors = {};
+router.get('/all', (req, res) => {
+  const errors = {};
 
-//   Profile.find()
-//     .populate('user', ['firstName', 'lastName', 'email'])
-//     .then(profiles => {
-//       if (!profiles) {
-//         errors.noprofile = 'There are no profiles';
-//         return res.status(404).json(errors);
-//       }
-
-//       res.json(profiles);
-//     })
-//     .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
-// });
+  Profile.find()
+    .populate('user', 'email')
+    .exec((err, profiles) => {
+      if(!profiles) {
+        errors.noprofiles = 'There are no profiles.';
+        return res.status(404).json(errors);
+      }
+      if(err) {
+        console.log(err)
+        res.status(400).end()
+      }
+      console.log(profiles)
+      res.json(profiles);
+    })
+});
 
 // ROUTE:   POST /profile
 // DESC:    Create or edit user's profile
