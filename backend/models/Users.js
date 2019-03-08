@@ -12,10 +12,12 @@ const UserSchema = new mongoose.Schema({
   },
   email: String,
   password: String,
-  // profileId: { 
-  //   type: Schema.Types.ObjectId, 
-  //   ref: 'profile' 
-  // }
+  customerId:String,
+  subscriptionId:String,
+  trips: [{ 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Trips'
+  }],
 });
 
 // UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
