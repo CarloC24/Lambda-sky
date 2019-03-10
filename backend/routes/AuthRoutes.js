@@ -17,6 +17,13 @@ router.get("/login", (req, res) =>
   res.json({ login: "please log in before continuing..." })
 );
 
+// ROUTE:   GET auth/success
+// DESC:    Tests success route
+// ACCESS:  Public
+router.get("/success", (req, res) =>
+  res.send("Success..." )
+);
+
 // ROUTE:   GET auth/logout
 // DESC:    Users can logout
 // ACCESS:  Private
@@ -39,7 +46,7 @@ router.get(
 // DESC:    Allow users to authenticate with google
 // ACCESS:  Public
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  res.redirect("/profile");
+  res.redirect("/auth/success");
 });
 
 // ROUTE:   GET auth/facebook
@@ -51,7 +58,7 @@ router.get("/facebook", passport.authenticate("facebook", {scope: ["email"]}));
 // DESC:    Allow users to authenticate with facebook
 // ACCESS:  Public
 router.get("/facebook/redirect", passport.authenticate("facebook", 
-{ successRedirect: '/profile', failureRedirect: '/login' }));
+{ successRedirect: '/auth/success', failureRedirect: '/login' }));
 
 router.get("/me", (req, res) => {
   res.json(req.user);
@@ -105,7 +112,6 @@ router.post("/register", (req, res) => {
       return res.status(400).json(errors);
     } else {
       const newUser = new User({
-        name: req.body.name,
         email: req.body.email,
         password: req.body.password
       });
@@ -124,7 +130,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-// ROUTE:   POST api/users/login
+// ROUTE:   POST auth/login
 // DESC:    Login User / Return JWT Token
 // ACCESS:  Public
 router.post("/login", (req, res) => {
@@ -152,7 +158,7 @@ router.post("/login", (req, res) => {
         // User matched
 
         // Create JWT payload
-        const payload = { id: user.id, name: user.name, avatar: user.avatar };
+        const payload = { id: user.id };
 
         // Sign token
         jwt.sign(payload, keys.tokenKey, { expiresIn: 3600 }, (err, token) => {

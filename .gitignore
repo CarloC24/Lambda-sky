@@ -7,3 +7,4 @@ haters/morehaters
 .env
 variables.env
 backend/config/keys.js
+backend/config/passport.js

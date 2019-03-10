@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 // const passportLocalMongoose = require("passport-local-mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -8,8 +10,6 @@ const UserSchema = new mongoose.Schema({
   facebook: {
     facebookId: String
   },
-  firstName: String,
-  lastName: String,
   email: String,
   password: String,
   customerId:String,
@@ -22,4 +22,4 @@ const UserSchema = new mongoose.Schema({
 
 // UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
