@@ -17,8 +17,16 @@ const UserSchema = new mongoose.Schema({
   trips: [{ 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Trips'
-  }],
+  }]
+}, {
+  toJSON: { virtuals: true }
 });
+
+UserSchema.virtual('hotels', {
+  ref: 'FaveHotels',
+  localField: '_id',
+  foreignField: 'userId'
+})
 
 // UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 

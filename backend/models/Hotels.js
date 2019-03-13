@@ -15,6 +15,14 @@ const HotelsSchema = new mongoose.Schema({
       type: String
     }
   }
+}, {
+  toJSON: { virtuals: true }
 });
+
+HotelsSchema.virtual('users', {
+  ref: 'FaveHotels',
+  localField: '_id',
+  foreignField: 'hotelId'
+})
 
 module.exports = mongoose.model('Hotels', HotelsSchema);

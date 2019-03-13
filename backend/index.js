@@ -11,6 +11,7 @@ server.use(passport.session());
 require('./config/passport-config')(passport);
 
 const AuthRoutes = require("./routes/AuthRoutes");
+const UserRoutes = require("./routes/UsersRoutes");
 const ProfileRoutes = require("./routes/ProfileRoutes");
 const HotelsRouter = require("./routes/HotelsRouter");
 const TripsRouter = require("./routes/TripsRouter");
@@ -25,6 +26,7 @@ mongoose.connection.once("open", () => {
 // Server.use routes
 
 server.use("/auth", AuthRoutes);
+server.use("/users", UserRoutes);
 server.use("/profile", ProfileRoutes);
 server.use("/hotel", HotelsRouter);
 server.use("/trips", TripsRouter);
