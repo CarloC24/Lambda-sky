@@ -17,5 +17,17 @@ router.post('/',async (req,res) => {
     }
 })
 
+// ROUTE:   GET hotel/:userId/favehotel
+// DESC:    Get all favorite hotels for a particular user
+// ACCESS:  Public
+router.get('/:userId/favehotel', async (req, res) => {
+    try {
+        const faveHotel = await FaveHotels.find({ userId: req.params.userId })
+
+        res.status(200).json(faveHotel);
+    } catch (err) {
+        console.log(err);
+    }
+})
 
 module.exports = router;
