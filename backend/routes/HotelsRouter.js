@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+
 const Hotels = require('../models/Hotels');
+const Users = require('../models/Users');
+const FaveHotels = require('../models/FaveHotels');
 
 
 router.get('/',async (req,res) => {
@@ -23,6 +26,24 @@ router.post('/',async (req,res) => {
 router.get('/:userId/favehotel', async (req, res) => {
     try {
         const faveHotel = await FaveHotels.find({ userId: req.params.userId })
+
+        res.status(200).json(faveHotel);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+// ROUTE:   POST hotel/:userId/favehotel
+// DESC:    Create a favorite hotel for a particular user
+// ACCESS:  Public
+router.post('/:userId/favehotel', async (req, res) => {
+    try {
+        const faveHotel = await new FaveHotels({
+            hotelId: req.body.hotelId,
+            userId: req.params.userId
+        }).save();
+
+        console.log(faveHotel);
 
         res.status(200).json(faveHotel);
     } catch (err) {
