@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const TripsSchema = new mongoose.Schema({
-  userId: { type: Mongooose.Schema.Types.ObjectId, ref: 'user' },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   startDate: {
     type: Date
   },
